@@ -1,0 +1,59 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+$p-font: 'Ubuntu', sans-serif;
+$h-font: 'Limelight', cursive;
+$primary-bg-color: #4b3335;
+$primary-text-color: rgba(255, 255, 255, 0.85);
+$secondary-bg-color: rgba(238, 214, 214, 0.3);
+$secondary-h-color: #a80818;
+$secondary-p-color: #4b3335;
+$font-size-h: 2rem;
+$font-size-p: 1rem;
+
+* {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  font-family: $p-font;
+}
+
+h1 {
+  font-size: $font-size-h;
+  font-family: $h-font;
+}
+
+h3 {
+  font-size: ($font-size-h + $font-size-p)/2;
+  font-family: $h-font;
+}
+
+p {
+  font-size: $font-size-p;
+  font-family: $p-font;
+}
+
+a {
+  color:inherit;
+  text-decoration: none;
+}
+
+.primary {
+  background-color: $primary-bg-color;
+  color: $primary-text-color
+}
+
+.secondary {
+  background-color: $secondary-bg-color;
+  color: $secondary-p-color;
+
+  h1, h3 {
+    color: $secondary-h-color
+  }
+}
