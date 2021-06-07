@@ -30,7 +30,33 @@ const resultsSection = () => {
   section.id = 'results_section';
   section.classList.add('secondary');
 
+  section.appendChild(resultsList('Santiago', 30, 'cloudy', [{name:'humidity', content: '83%'}, {name: 'wind', content: '1km/h'}]));
+
   return section;
 };
+
+const resultsList = (cityName, temperature, forecast, otherData) => {
+  const article = document.createElement('article');
+
+  const h1 = document.createElement('h1');
+  h1.textContent = cityName;
+  article.appendChild(h1);
+
+  const h3 = document.createElement('h3');
+  h3.textContent = `${temperature} \u2103 `;
+  const i = document.createElement('i');
+  i.classList.add('fas', 'fa-cloud', 'fa-fw');
+  h3.appendChild(i);
+  article.appendChild(h3);
+
+  otherData?.map(data => {
+    const p = document.createElement('p');
+    p.textContent = `${data.name}: ${data.content}`;
+
+    article.appendChild(p);
+  });
+
+  return article;
+}
 
 export { formSection, resultsSection };
