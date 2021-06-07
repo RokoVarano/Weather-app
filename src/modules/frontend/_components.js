@@ -20,6 +20,7 @@ const formForm = () => {
 
   const submitButton = document.createElement('button');
   submitButton.textContent = 'submit';
+  submitButton.classList.add('primary');
   form.appendChild(submitButton);
 
   return form;
@@ -45,7 +46,7 @@ const resultsList = (cityName, temperature, forecast, otherData) => {
   const h3 = document.createElement('h3');
   h3.textContent = `${temperature} \u2103 `;
   const i = document.createElement('i');
-  i.classList.add('fas', 'fa-cloud', 'fa-fw');
+  i.classList.add('fas', 'fa-cloud');
   h3.appendChild(i);
   article.appendChild(h3);
 
