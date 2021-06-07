@@ -12,34 +12,50 @@ $secondary-p-color: #4b3335;
 $font-size-h: 2rem;
 $font-size-p: 1rem;
 
-* {
+.general {
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+html,
+body {
+  @extend .general;
+}
+
+section {
+  @extend .general;
 }
 
 label {
+  @extend .general;
   font-family: $p-font;
 }
 
 h1 {
+  @extend .general;
   font-size: $font-size-h;
   font-family: $h-font;
 }
 
 h3 {
+  @extend .general;
   font-size: ($font-size-h + $font-size-p)/2;
   font-family: $h-font;
 }
 
 p {
+  @extend .general;
   font-size: $font-size-p;
   font-family: $p-font;
 }
 
 a {
+  @extend .general;
   color:inherit;
   text-decoration: none;
 }
