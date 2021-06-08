@@ -30,7 +30,8 @@ h1,
 h3,
 p,
 article,
-a {
+a,
+#selectorContainer, {
   @extend .general;
 }
 
@@ -80,4 +81,12 @@ article {
   h3 {
     color: $secondary-h-color;
   }
+}
+
+#selectorContainer {
+  padding: 1rem 0;
+}
+
+#cfSelector {
+  width: 2rem;
 }

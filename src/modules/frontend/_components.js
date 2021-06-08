@@ -10,12 +10,30 @@ const formForm = () => {
   inputText.type = 'text';
   form.appendChild(inputText);
 
+  const cfSelector = document.createElement('input');
+  cfSelector.id = 'cfSelector';
+  cfSelector.type = 'range';
+  cfSelector.min = '0';
+  cfSelector.max = '1';
+  cfSelector.value = '0';
+
+  const selectorContainer = document.createElement('div');
+  selectorContainer.id = 'selectorContainer';
+  const pCelcius = document.createElement('p');
+  pCelcius.textContent = ' \u2103';
+  const pFarenheit = document.createElement('p');
+  pFarenheit.textContent = ' \u2109';
+  selectorContainer.appendChild(pCelcius);
+  selectorContainer.appendChild(cfSelector);
+  selectorContainer.appendChild(pFarenheit);
+
   const submitButton = document.createElement('button');
   submitButton.textContent = 'submit';
   submitButton.type = 'button';
   submitButton.classList.add('primary');
-  submitButton.addEventListener('click', () => fetchWeather(inputText.value));
+  submitButton.addEventListener('click', () => fetchWeather(inputText.value, cfSelector.value));
   form.appendChild(submitButton);
+  form.appendChild(selectorContainer);
 
   return form;
 };
@@ -30,7 +48,7 @@ const formSection = () => {
   return section;
 };
 
-const resultsList = (cityName, temperature, picture, otherData) => {
+const resultsList = (cf, cityName, temperature, picture, otherData) => {
   const article = document.createElement('article');
 
   const icon = document.createElement('img');
@@ -41,8 +59,10 @@ const resultsList = (cityName, temperature, picture, otherData) => {
   h1.textContent = cityName;
   article.appendChild(h1);
 
+  const cfName = cf === '0' ? '\u2103' : '\u2109';
+
   const h3 = document.createElement('h3');
-  h3.textContent = `${temperature} \u2103 `;
+  h3.textContent = `${temperature} ${cfName}`;
   article.appendChild(h3);
 
   otherData.map((data) => {
@@ -57,7 +77,7 @@ const resultsList = (cityName, temperature, picture, otherData) => {
   return article;
 };
 
-const resultsSection = (jsonObject = null) => {
+const resultsSection = (jsonObject = null, cf = '0') => {
   const section = document.createElement('section');
   section.id = 'results_section';
   section.classList.add('primary');
@@ -68,7 +88,7 @@ const resultsSection = (jsonObject = null) => {
   }
 
   if (jsonObject.cod !== '404') {
-    section.appendChild(resultsList(jsonObject.name, jsonObject.main.temp, jsonObject.weather[0].icon, [[jsonObject.weather[0].description, '', ''], ['Wind', jsonObject.wind.speed, 'km/h'], ['Humidity', jsonObject.main.humidity, '%']]));
+    section.appendChild(resultsList(cf, jsonObject.name, jsonObject.main.temp, jsonObject.weather[0].icon, [[jsonObject.weather[0].description, '', ''], ['Wind', jsonObject.wind.speed, 'km/h'], ['Humidity', jsonObject.main.humidity, '%']]));
   } else {
     const errorMessage = document.createElement('h1');
     errorMessage.textContent = jsonObject.message;
