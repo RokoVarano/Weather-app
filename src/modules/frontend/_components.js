@@ -1,3 +1,5 @@
+import { fetchWeather } from "../backend/_api"
+
 const formSection = () => {
   const section = document.createElement('section');
   section.id = 'form_section';
@@ -20,18 +22,24 @@ const formForm = () => {
 
   const submitButton = document.createElement('button');
   submitButton.textContent = 'submit';
+  submitButton.type = 'button';
   submitButton.classList.add('primary');
+  submitButton.addEventListener('click', () => 
+    fetchWeather(inputText.value));
   form.appendChild(submitButton);
 
   return form;
 }
 
-const resultsSection = () => {
+const resultsSection = (jsonObject = null) => {
   const section = document.createElement('section');
   section.id = 'results_section';
   section.classList.add('secondary');
+  section.innerHTML = '';
 
-  section.appendChild(resultsList('Santiago', 30, 'cloudy', [{name:'humidity', content: '83%'}, {name: 'wind', content: '1km/h'}]));
+  if (jsonObject) {
+    section.appendChild(resultsList(jsonObject.name, jsonObject.main.temp, jsonObject.weather[0].id, [['Wind', jsonObject.wind.speed], ['Humidity', jsonObject.main.humidity]]));
+  }
 
   return section;
 };
@@ -52,7 +60,7 @@ const resultsList = (cityName, temperature, forecast, otherData) => {
 
   otherData?.map(data => {
     const p = document.createElement('p');
-    p.textContent = `${data.name}: ${data.content}`;
+    p.textContent = `${data[0]}: ${data[1]}`;
 
     article.appendChild(p);
   });
