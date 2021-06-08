@@ -7,7 +7,7 @@ const fetchWeather = async (cityName) => {
 
   sessionStorage.setItem('data', json);
 
-  location.reload();
+  window.location.reload();
 };
 
-export { fetchWeather };
+export default fetchWeather;
