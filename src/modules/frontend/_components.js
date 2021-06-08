@@ -3,7 +3,7 @@ import { fetchWeather } from "../backend/_api"
 const formSection = () => {
   const section = document.createElement('section');
   section.id = 'form_section';
-  section.classList.add('primary');
+  section.classList.add('secondary');
 
   section.appendChild(formForm());
 
@@ -34,18 +34,30 @@ const formForm = () => {
 const resultsSection = (jsonObject = null) => {
   const section = document.createElement('section');
   section.id = 'results_section';
-  section.classList.add('secondary');
+  section.classList.add('primary');
   section.innerHTML = '';
 
-  if (jsonObject) {
-    section.appendChild(resultsList(jsonObject.name, jsonObject.main.temp, jsonObject.weather[0].id, [['Wind', jsonObject.wind.speed], ['Humidity', jsonObject.main.humidity]]));
+  if (jsonObject === null) {
+    return section;
+  }
+
+  if (jsonObject.cod !== '404') {
+    section.appendChild(resultsList(jsonObject.name, jsonObject.main.temp, jsonObject.weather[0].icon, [[jsonObject.weather[0].description, '', ''], ['Wind', jsonObject.wind.speed, 'km/h'], ['Humidity', jsonObject.main.humidity, '%']]));
+  } else {
+    const errorMessage = document.createElement('h1');
+    errorMessage.textContent = jsonObject.message;
+    section.appendChild(errorMessage);
   }
 
   return section;
 };
 
-const resultsList = (cityName, temperature, forecast, otherData) => {
+const resultsList = (cityName, temperature, picture, otherData) => {
   const article = document.createElement('article');
+
+  const icon = document.createElement('img');
+  icon.src = `http://openweathermap.org/img/wn/${picture}@2x.png`
+  article.appendChild(icon);
 
   const h1 = document.createElement('h1');
   h1.textContent = cityName;
@@ -53,14 +65,11 @@ const resultsList = (cityName, temperature, forecast, otherData) => {
 
   const h3 = document.createElement('h3');
   h3.textContent = `${temperature} \u2103 `;
-  const i = document.createElement('i');
-  i.classList.add('fas', 'fa-cloud');
-  h3.appendChild(i);
   article.appendChild(h3);
 
   otherData?.map(data => {
     const p = document.createElement('p');
-    p.textContent = `${data[0]}: ${data[1]}`;
+    p.textContent = `${data[0]} ${data[1]} ${data[2]}`;
 
     article.appendChild(p);
   });
