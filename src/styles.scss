@@ -23,14 +23,15 @@ $font-size-p: 1rem;
 }
 
 html,
-body, 
+body,
 section,
 label,
 h1,
 h3,
 p,
 article,
-a {
+a,
+#selectorContainer, {
   @extend .general;
 }
 
@@ -54,7 +55,7 @@ p {
 }
 
 a {
-  color:inherit;
+  color: inherit;
   text-decoration: none;
 }
 
@@ -69,14 +70,23 @@ article {
 
 .primary {
   background-color: $primary-bg-color;
-  color: $primary-text-color
+  color: $primary-text-color;
 }
 
 .secondary {
   background-color: $secondary-bg-color;
   color: $secondary-p-color;
 
-  h1, h3 {
-    color: $secondary-h-color
+  h1,
+  h3 {
+    color: $secondary-h-color;
   }
+}
+
+#selectorContainer {
+  padding: 1rem 0;
+}
+
+#cfSelector {
+  width: 2rem;
 }
